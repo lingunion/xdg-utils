@@ -281,12 +281,12 @@ search_desktop_file()
 
     if [ -r "$file" ] ; then
         command="$(get_key "${file}" "Exec" | first_word)"
-        command_exec=`which $command 2>/dev/null`
+        command_exec=`which "$command" 2>/dev/null`
         icon="$(get_key "${file}" "Icon")"
         # FIXME: Actually LC_MESSAGES should be used as described in
         # http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
         localised_name="$(get_key "${file}" "Name")"
-        set -- $(get_key "${file}" "Exec" | last_word)
+        eval set -- $(get_key "${file}" "Exec" | last_word)
         # We need to replace any occurrence of "%f", "%F" and
         # the like by the target file. We examine each
         # argument and append the modified argument to the
